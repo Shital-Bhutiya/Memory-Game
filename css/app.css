@@ -1,0 +1,311 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #ffffff url('../img/geometry2.png');
+    /* Background pattern from Subtle Patterns */
+    font-family: 'Coda', cursive;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+/*
+ * Styles for the deck of cards
+ */
+
+.deck {
+    width: 660px;
+    min-height: 680px;
+    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 3em;
+}
+
+.deck .card {
+    height: 125px;
+    width: 125px;
+    background: #2e3d49;
+    font-size: 0;
+    color: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+.deck .card.open {
+    transform: rotateY(0);
+    background: #02b3e4;
+    cursor: default;
+}
+
+.deck .card.show {
+    font-size: 33px;
+}
+
+.deck .card.match {
+    cursor: default;
+    background: #02ccba;
+    font-size: 33px;
+}
+
+/*
+ * Styles for the Score Panel
+ */
+
+.score-panel {
+    text-align: left;
+    width: 345px;
+    margin-bottom: 10px;
+}
+
+.score-panel .stars {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.score-panel .stars li {
+    list-style: none;
+    display: inline-block;
+}
+
+.score-panel .restart {
+    float: right;
+    cursor: pointer;
+}
+
+/* for Congratulation Popup */
+
+.congo1 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url('../img/congo.gif');
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+}
+
+.congo {
+    background-color: #fffffff6;
+    width: 660px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 40px;
+    margin: 113px auto 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: column wrap;
+}
+
+.playagain {
+    width: 150px;
+    color: white;
+    height: 40px;
+    background-color: #3fac3f;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.playagain:hover {
+    background-color: white;
+    border: 1px solid green;
+    color: green;
+}
+
+.lightSpeedIn {
+    animation-name: lightSpeedIn;
+    animation-timing-function: ease-out;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+@keyframes lightSpeedIn {
+    0% {
+        transform: translate(100%, 0) skewX(-30deg);
+        opacity: 0;
+    }
+    60% {
+        transform: skewX(20deg);
+        opacity: 1;
+    }
+    80% {
+        transform: skewX(-5deg);
+        opacity: 1;
+    }
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+/* to rotate card */
+
+.rotate {
+    animation: rotate 1s ease 0s 1 normal;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* do wobble animation when they unmatch */
+
+.deck .card.open.wobble {
+    animation-name: wobble;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    background-color: rgb(243, 56, 56);
+    font-size: 33px;
+}
+
+@keyframes wobble {
+    0% {
+        transform: none;
+    }
+    15% {
+        transform: translate(-25%, 0) rotate(-5deg);
+    }
+    30% {
+        transform: translate(20%, 0) rotate(3deg);
+    }
+    45% {
+        transform: translate(-15%, 0) rotate(-3deg);
+    }
+    60% {
+        transform: translate(10%, 0) rotate(2deg);
+    }
+    75% {
+        transform: translate(-5%, 0) rotate(-1deg);
+    }
+    100% {
+        transform: none;
+    }
+}
+
+/* do ruubberband animation When they match */
+
+.rubberBand {
+    animation-name: rubberBand;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+@keyframes rubberBand {
+    0% {
+        transform: scale(1, 1);
+    }
+    30% {
+        transform: scale(1.25, 0.75);
+    }
+    40% {
+        transform: scale(0.75, 1.25);
+    }
+    50% {
+        transform: scale(1.15, 0.85);
+    }
+    65% {
+        transform: scale(.95, 1.05);
+    }
+    75% {
+        transform: scale(1.05, .95);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+/* for tablet */
+
+@media only screen and (max-width: 800px) {
+    .container {
+        font-size: 20px;
+    }
+    .deck {
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
+    .deck .card {
+        height: 125px;
+        width: 125px;
+        margin: 10px;
+    }
+    .deck .card.show.open {
+        font-size: 58px;
+    }
+    .deck .card.match {
+        font-size: 58px;
+    }
+    .congo {
+        width: 60%;
+    }
+}
+
+/* for mobile users */
+
+@media only screen and (max-width: 375px) {
+    .deck {
+        width: 94%;
+        height: auto;
+        margin: 0 auto;
+        min-height: 400px;
+    }
+    .deck .card.show.open {
+        font-size: 30px;
+    }
+    .deck .card.match {
+        font-size: 30px;
+    }
+    .deck .card {
+        height: 60px;
+        width: 55px;
+        margin: 0;
+    }
+    .congo h1,
+    h2,
+    h3,
+    h4 {
+        font-size: 26px;
+    }
+}
